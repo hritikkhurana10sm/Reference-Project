@@ -1,0 +1,38 @@
+<div *ngIf="this.loader" class="spinner">
+  <p-progressSpinner></p-progressSpinner>
+</div>
+<div class="body">
+  <p-toast></p-toast>
+    <div *ngIf="this.authService.isUserLoggedIn" class="header">
+      <div class="app-title">
+        <div class="app-logo prime-font">P</div>
+        <h2 class="prime-font">{{ title }}</h2>
+      </div>
+      <div>
+        <p-avatar (click)="op.toggle($event)"
+                  [style]="{ 'background-color': '#605DC8', color: '#ffffff',cursor: 'pointer' }"
+                  label="{{this.userProfile?.name!.at(0) | uppercase}}" shape="circle" styleClass="mr-2"></p-avatar>
+      </div>
+    </div>
+    <div class="router-outlet">
+      <router-outlet></router-outlet>
+    </div>
+</div>
+<p-overlayPanel #op>
+  <ng-template pTemplate="content">
+    <div class="user-card">
+      <div class="prime-font">
+        <i class="pi pi-user"></i>
+        {{this.userProfile?.name!}}
+      </div>
+      <div class="prime-font">
+        <i class="pi pi-envelope"></i>
+        {{this.userProfile?.email!}}
+      </div>
+      <p-button (onClick)="signOutClicked(op)" pRipple>
+        <i class="pi pi-sign-out"></i>
+        Sign Out
+      </p-button>
+    </div>
+  </ng-template>
+</p-overlayPanel>

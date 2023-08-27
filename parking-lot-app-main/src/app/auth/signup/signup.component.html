@@ -1,0 +1,43 @@
+<div class="from-container">
+  <div class="form signup">
+    <div class="app-logo prime-font">P</div>
+    <h2 class="prime-font">{{ title }}</h2>
+    <form (ngSubmit)="signupUser()" #signupForm="ngForm">
+      <div class="form-fields">
+        <label class="prime-font" for="username">Username<span class="asterisk">*</span></label>
+        <input #username="ngModel" [(ngModel)]="signupDto.username!" id="username" name="username" pInputText required="true" type="text"/>
+        <div *ngIf="username.touched && username.invalid">
+          <small class="p-invalid">Username is required</small>
+        </div>
+
+        <label class="prime-font" for="email">Email<span class="asterisk">*</span></label>
+        <input #email="ngModel" [(ngModel)]="signupDto.email!" id="email" name="email" pInputText required="true" type="text"/>
+        <div *ngIf="email.touched && email.invalid">
+          <small class="p-invalid">Email is required</small>
+        </div>
+
+        <label class="prime-font" for="name">Name<span class="asterisk">*</span></label>
+        <input #name="ngModel" [(ngModel)]="signupDto.name!" id="name" name="name" pInputText required="true" type="text"/>
+        <div *ngIf="name.touched && name.invalid">
+          <small class="p-invalid">Name is required</small>
+        </div>
+
+        <label class="prime-font" for="password">Password<span class="asterisk">*</span></label>
+        <input #password="ngModel" [(ngModel)]="signupDto.password!" id="password" name="password" pInputText required="true" type="password"/>
+        <div *ngIf="password.touched && password.invalid">
+          <small class="p-invalid">Password is required</small>
+        </div>
+
+        <label class="prime-font" for="confirmPassword">Confirm Password<span class="asterisk">*</span></label>
+        <input #confirmPassword="ngModel" [(ngModel)]="signupDto.confirmPassword!" id="confirmPassword" name="confirmPassword" pInputText required="true" type="password"/>
+        <div *ngIf="confirmPassword.touched && confirmPassword.invalid">
+          <small class="p-invalid">Field is required</small>
+        </div>
+      </div>
+      <div class="signup-form-btns">
+        <p-button pRipple (click)="goToSignInPage()" label="Cancel" styleClass="p-button-outlined"></p-button>
+        <p-button pRipple label="Sign Up" styleClass="p-button" [disabled]="signupForm.form.invalid" type="submit" ></p-button>
+      </div>
+    </form>
+  </div>
+</div>

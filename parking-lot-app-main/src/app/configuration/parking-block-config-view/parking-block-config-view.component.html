@@ -1,0 +1,22 @@
+<div [class.gap-between-lvls]="inputBlock.blocks" class="hierarchy">
+  <div class="level">
+    <h3 *ngIf="inputBlock.blocks" class="prime-font normal">Blocks</h3>
+    <div (click)=selectBlock(block) *ngFor="let block of inputBlock.blocks" [class.color-scheme]="status==='Active'"
+         [class.highlight]="selectedBlock===block"
+         [class.phase0-filled]="block.occupiedSpots===0"
+         [class.phase1-filled]="block.occupiedSpots>0 && block.occupiedSpots*100<=25*block.totalSpots"
+         [class.phase2-filled]="block.occupiedSpots*100>25*block.totalSpots&&block.occupiedSpots*100<=50*block.totalSpots"
+         [class.phase3-filled]="block.occupiedSpots*100>50*block.totalSpots&&block.occupiedSpots*100<=75*block.totalSpots"
+         [class.phase4-filled]="block.occupiedSpots*100>75*block.totalSpots&&block.occupiedSpots*100<100*block.totalSpots"
+         [class.phase5-filled]="block.occupiedSpots===block.totalSpots && block.totalSpots>0"
+         class="list-block-item">
+      {{ block.name}}
+    </div>
+  </div>
+  <div [class.border-padding]="inputBlock.blocks?.length" class="sub-lvl">
+    <parking-block-config-view *ngIf="selectedBlock" [inputBlock]="selectedBlock"
+                               [status]="status"></parking-block-config-view>
+    <parking-spot-config-view *ngIf="inputBlock.spots?.length" [inputSpots]="inputBlock.spots!"
+                              [parkingStatus]="status"></parking-spot-config-view>
+  </div>
+</div>

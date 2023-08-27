@@ -1,0 +1,129 @@
+<div *ngIf="inputBlock!" class="block-config">
+  <div class="field-btns">
+    <div class="field">
+      <label class="prime-font">
+        <span class="asterisk">* </span>
+        {{ inputName }}:
+      </label>
+      <div class="label-input">
+        <input #bName="ngModel" [(ngModel)]="inputBlock!.name" class="p-inputtext-sm" name="bName" pInputText
+               required="true"/>
+        <small *ngIf="bName.touched && bName.invalid" class="p-invalid" id="username-help">
+          <ng-template></ng-template>
+          {{ inputName }} is required.
+        </small>
+      </div>
+    </div>
+    <div class="horizontal-btns">
+      <p-button pRipple (click)="numberOfAddOns=1" (onClick)="copyBlockOverlay.toggle($event)" *ngIf="level>0"
+                icon="pi pi-copy" styleClass="p-button-outlined"></p-button>
+      <p-button pRipple (click)="deleteConfirmation(inputName)" *ngIf="level>0" icon="pi pi-trash"
+                styleClass="p-button-outlined p-button-danger"></p-button>
+      <p-button pRipple (click)="op1.toggle($event)"
+                *ngIf="(inputBlock!.blocks?.length||(!this.inputBlock!.blocks?.length && !this.inputBlock!.spots?.length)) &&level < 5"
+                label="Add Blocks" styleClass="p-button-outlined" type="button"></p-button>
+      <p-button pRipple (click)="op2.toggle($event)"
+                *ngIf="this.inputBlock!.spots?.length ||(!this.inputBlock!.blocks?.length && !this.inputBlock!.spots?.length)"
+                label="Add Spots"
+                styleClass="p-button-outlined " type="button"></p-button>
+    </div>
+  </div>
+  <div style="flex: 1">
+    <div class="hierarchy">
+      <div class="level">
+        <div (click)=selectBlock(blockInList) *ngFor="let blockInList of inputBlock!.blocks"
+             [class.highlight]="selectedBlock===blockInList"
+             class="list-block-item">
+          {{ blockInList.name }}
+        </div>
+      </div>
+      <div [class.border]="inputBlock!.blocks?.length" class="sub-lvl">
+        <parking-block-config-edit (deleteBlock)="catchDeleteBlockEvent($event)"
+                                   (sendBlockCopies)="addBlockCopies($event)" *ngIf="selectedBlock"
+                                   [inputBlock]="selectedBlock"
+                                   [level]="level + 1"></parking-block-config-edit>
+        <parking-spot-config-edit *ngIf="inputBlock!.spots?.length"
+                                  [inputSpots]="inputBlock!.spots!"></parking-spot-config-edit>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-confirmDialog [style]="{ width: '35vw' }" key="confirmDialog" position="top"
+                 rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
+<p-overlayPanel #copyBlockOverlay>
+  <div class="overlay-container">
+    <div class="field">
+      <label class="mb-2 block font-bold">
+        <span class="asterisk">* </span>
+        Number of copies:
+      </label>
+      <div class="container">
+        <input #numcopies="ngModel" [(ngModel)]="numberOfAddOns" class="p-inputtext-sm" min="1" name="numcopies"
+               pInputText
+               required="true" style="width: 70px;" type="number"/>
+        <div *ngIf="numcopies.touched && nof.invalid">
+          <div *ngIf="numberOfAddOns === undefined; else elseBlock">
+            <small class="p-invalid">Number of Blocks to be added are required.</small>
+          </div>
+          <ng-template #elseBlock>
+            <small class="p-invalid">Number of Blocks to add should be at-least 1.</small>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <div class="overlay-btns">
+      <p-button pRipple (click)="copyBlockOverlay.hide()" (onClick)="copyBlock(numberOfAddOns!)"
+                [disabled]="nof.invalid!" label="Add-Copies"></p-button>
+      <p-button pRipple (onClick)="copyBlockOverlay.hide()" label="Cancel" styleClass="p-button-secondary"></p-button>
+    </div>
+  </div>
+</p-overlayPanel>
+<p-overlayPanel #op1>
+  <div class="overlay-container">
+    <div class="field">
+      <label class="mb-2 block font-bold">
+        <span class="asterisk">* </span>
+        Number of Blocks:
+      </label>
+      <div class="container">
+        <input #nof="ngModel" [(ngModel)]="numberOfAddOns" class="p-inputtext-sm" min="1" name="nof" pInputText
+               required="true" style="width: 70px;" type="number"/>
+        <div *ngIf="nof.touched && nof.invalid">
+          <div *ngIf="numberOfAddOns === undefined; else elseBlock">
+            <small class="p-invalid">Number of Blocks to be added are required.</small>
+          </div>
+          <ng-template #elseBlock>
+            <small class="p-invalid">Number of Blocks to add should be at-least 1.</small>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <p-button pRipple (click)="op1.hide()" (onClick)="addBlocks(numberOfAddOns!)" [disabled]="nof.invalid!"
+              label="Add Blocks"></p-button>
+  </div>
+</p-overlayPanel>
+<p-overlayPanel #op2>
+  <div class="overlay-container">
+    <div class="field">
+      <label class="mb-2 block font-bold">
+        <span class="asterisk">* </span>
+        Number of Spots:
+      </label>
+      <div class="container">
+        <input #nof="ngModel" [(ngModel)]="numberOfAddOns" class="p-inputtext-sm" min="1" name="nof" pInputText
+               required="true" style="width: 70px;" type="number"/>
+        <div *ngIf="nof.touched && nof.invalid">
+          <div *ngIf="numberOfAddOns === undefined; else elseBlock">
+            <small class="p-invalid">Number of Spots to be added are required.</small>
+          </div>
+          <ng-template #elseBlock>
+            <small class="p-invalid">Number of Spots to add should be at-least 1.</small>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <p-button pRipple (click)="op2.hide()" (onClick)="addSpots(numberOfAddOns!)" [disabled]="nof.invalid!"
+              label="Add Spots"></p-button>
+  </div>
+</p-overlayPanel>

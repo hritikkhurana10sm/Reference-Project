@@ -1,0 +1,93 @@
+.block-config {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+  width: 100%;
+}
+
+.label-input {
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+}
+
+.field {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.field-btns {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  padding-right: 15px;
+}
+
+.overlay-container {
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  align-items: center;
+  gap: 20px;
+}
+
+.overlay-btns {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.blocks-container {
+  flex: 1;
+}
+
+.hierarchy {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  gap: 20px;
+}
+
+.level {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.sub-lvl {
+  flex: 1;
+  padding: 15px 0 0 15px;
+}
+
+.border {
+  border-top: 1px solid #ced4da;
+  border-left: 1px solid #ced4da;
+  border-top-left-radius: 6px;
+}
+
+:host ::ng-deep .p-listbox {
+  height: 100%;
+  width: 100%;
+}
+
+.list-block-item {
+  display: flex;
+  padding: 15px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  cursor: pointer;
+  justify-content: center;
+
+  &:hover {
+    background-color: #e6eaf1;
+  }
+
+  &.highlight {
+    color: #ffffff;
+    background: #64748B;
+    border: 1px solid #64748B;
+  }
+}

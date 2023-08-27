@@ -1,0 +1,48 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.header {
+  text-align: left;
+  background: #d1d2f0;
+  transition: box-shadow 0.2s;
+  border-width: 0 0 1px 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  padding: 0 15px;
+}
+
+.app-title {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+h2 {
+  font-weight: bold;
+  color: #343a40;
+}
+
+.bolder {
+  font-weight: bolder;
+}
+
+.user-card {
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  gap: 20px;
+}
+
+i {
+  padding-right: 5px;
+}
+
+.router-outlet {
+  flex: 1;
+}

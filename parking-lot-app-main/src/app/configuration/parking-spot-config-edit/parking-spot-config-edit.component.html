@@ -1,0 +1,35 @@
+<div class="spot-config">
+  <label class="mb-2 block font-bold">
+    Spots:
+  </label>
+  <div class="spots-wrap">
+    <div *ngFor="let spot of inputSpots; let i=index" [class.highlight]="selectedSpot===spot" class="spot">
+      <div class="spot-name-delete-icon">
+        <i (click)="deleteConfirmation(spot,i)" class="pi pi-trash spot-delete-icon"></i>
+        <div (click)="op3.toggle($event)" (click)=selectSpot(spot) class="spot-name">{{spot.name}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-confirmDialog [style]="{ width: '35vw' }" key="confirmDialog" position="top"
+                 rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
+<p-overlayPanel #op3>
+  <div class="spot-overlay">
+    <label class="mb-2 block font-bold">
+      Spot Sequence: {{selectedSpot!.sequence}}
+    </label>
+    <div class="fields">
+      <label class="mb-2 block font-bold">
+        Spot Name:
+      </label>
+      <input
+        #sName="ngModel"
+        [(ngModel)]="selectedSpot!.name"
+        class="p-inputtext-sm"
+        name="sName"
+        pInputText
+      />
+    </div>
+  </div>
+</p-overlayPanel>

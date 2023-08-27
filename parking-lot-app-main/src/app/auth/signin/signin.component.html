@@ -1,0 +1,31 @@
+<div class="from-container">
+  <div class="form signin">
+    <div class="app-logo prime-font">P</div>
+    <h2 class="prime-font">{{ title }}</h2>
+    <form #signinForm="ngForm" (ngSubmit)="signinUser()">
+      <div class="form-fields">
+        <label class="prime-font" for="username">Username</label>
+        <input #username="ngModel" [(ngModel)]="signingInUser.username!" id="username" name="username"
+               pInputText placeholder="Username" required="true" type="text"/>
+        <div *ngIf="username.touched && username.invalid">
+          <small class="p-invalid">Username is required</small>
+        </div>
+        <label class="prime-font" for="password">Password</label>
+        <input #password="ngModel" [(ngModel)]="signingInUser.password!" id="password" name="password"
+               pInputText placeholder="Password" required="true" type="password"/>
+        <div *ngIf="password.touched && password.invalid">
+          <small class="p-invalid">Password is required</small>
+        </div>
+      </div>
+      <p-button [disabled]="signinForm.form.invalid" label="Sign In" pRipple styleClass="p-button"
+                type="submit"></p-button>
+      <div class="login-form-context-links">
+        <div class="context-field">
+          <span class="spacing-xss">Don't have an account?</span>
+          <span><a href="/user/signup">Sign Up</a></span>
+        </div>
+        <div class="context-field"><a href="/user/reset-password/initiate">Forgot Password</a></div>
+      </div>
+    </form>
+  </div>
+</div>

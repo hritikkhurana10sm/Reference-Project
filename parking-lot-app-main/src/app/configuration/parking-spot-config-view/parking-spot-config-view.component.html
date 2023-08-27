@@ -1,0 +1,44 @@
+<div class="spot-config">
+  <h3 class="prime-font normal">Spots</h3>
+  <div class="spots-wrap">
+    <div (click)=selectSpot(spot,op3,$event) *ngFor="let spot of inputSpots"
+         [class.highlight]="selectedSpot===spot" [class.occupied]="spot.carNum"
+         [class.vacant]="spot.carNum===undefined||spot.carNum===null" class="spot">
+      <div class="spot-labels">
+        {{spot.name}}
+        <div *ngIf="spot.carNum" class="small-font">{{spot.carNum}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-overlayPanel #op3>
+  <div class="spot-overlay">
+    <label class="mb-2 block font-bold">
+      Spot Sequence: {{selectedSpot.sequence}}
+    </label>
+    <label class="mb-2 block font-bold">
+      Spot Name: {{selectedSpot!.name}}
+    </label>
+    <label *ngIf="selectedSpot.carNum" class="mb-2 block font-bold">
+      Vehicle Number: {{selectedSpot.carNum}}
+    </label>
+    <div *ngIf="!selectedSpot.carNum && parkingStatus==='Active'" class="add-car">
+      <div class="field">
+        <label class="mb-2 block font-bold">
+          <span class="asterisk">* </span>
+          Vehicle Number :
+        </label>
+        <div class="label-input">
+          <input #carNum="ngModel" [(ngModel)]="this.carNumber" class="p-inputtext-sm" name="carNum" pInputText
+                 required=""/>
+          <small *ngIf="carNum.touched && carNum.invalid" class="p-invalid" id="username-help">
+            <ng-template></ng-template>
+            Enter Vehicle Number!
+          </small>
+        </div>
+      </div>
+      <p-button pRipple (onClick)="spotAllocation()" [disabled]="!this.carNumber" label="Add Vehicle"
+                styleClass="p-button-outlined"></p-button>
+    </div>
+  </div>
+</p-overlayPanel>

@@ -1,0 +1,79 @@
+.hierarchy {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+.gap-between-lvls {
+  gap: 20px;
+}
+
+.level {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sub-lvl {
+  flex: 1;
+}
+
+.border-padding {
+  border-top: 1px solid #ced4da;
+  border-left: 1px solid #ced4da;
+  border-top-left-radius: 6px;
+  padding: 15px 0 0 15px;
+}
+
+:host ::ng-deep .p-listbox {
+  height: 100%;
+  width: 100%;
+}
+
+.list-block-item {
+  display: flex;
+  padding: 15px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  cursor: pointer;
+  justify-content: center;
+
+  &:hover {
+    background-color: #e6eaf1;
+  }
+
+  &.highlight {
+    border: 2px solid #64748B;
+    box-shadow: 5px 4px 5px 0 #d0e1fd;
+  }
+
+  &.color-scheme {
+    &.phase0-filled {
+      background-color: white;
+    }
+
+    &.phase1-filled {
+      background-color: var(--red-100);;
+    }
+
+    &.phase2-filled {
+      background-color: var(--red-200);
+    }
+
+    &.phase3-filled {
+      background-color: var(--red-300);
+    }
+
+    &.phase4-filled {
+      background-color: var(--red-400);
+    }
+
+    &.phase5-filled {
+      background-color: var(--red-500);
+    }
+  }
+}
+
+:host h3 {
+  margin: 0;
+}

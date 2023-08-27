@@ -1,0 +1,65 @@
+.spot-config {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.spots-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.spot {
+  display: inline-block;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 10px;
+
+  &:hover {
+    background-color: #f6f9fc;
+  }
+
+  &.highlight {
+    color: #ffffff;
+    background: #64748B;
+    border: 1px solid #64748B;
+  }
+}
+
+.spot-name-delete-icon {
+  display: flex;
+  flex-direction: column;
+}
+
+.spot-name {
+  display: flex;
+  padding: 5px 18.6px 18.6px;
+}
+
+.spot-delete-icon {
+  display: flex;
+  justify-content: flex-end;
+  color: #EF4444;
+}
+
+:host ::ng-deep .p-button-icon-only {
+  width: 15px;
+
+  &.p-button-rounded {
+    height: 15px;
+  }
+}
+
+.spot-overlay {
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  gap: 20px;
+}
+
+.fields {
+  display: flex;
+  gap: 5px;
+}

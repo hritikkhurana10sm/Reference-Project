@@ -1,0 +1,79 @@
+<div class="dashboard">
+  <div class="header">
+    <h3 class="prime-font">Parkings</h3>
+    <p-button pRipple (onClick)="registerParking()" label="Register" styleClass="p-button"></p-button>
+  </div>
+  <div *ngIf="this.parkingList.length===0" class="content-not-found">
+    <h2>Content Not Found</h2>
+  </div>
+  <div *ngIf="this.parkingList.length>0" class="table-info">
+    <div class="table">
+      <div class="list-wrap">
+        <div (click)="selectParking(parkingInList)" *ngFor="let parkingInList of parkingList"
+             [class.highlight]="selectedParking===parkingInList"
+             class="parking-field">
+          <div class="status-icon-parking-name">
+            <div [class.active]="parkingInList.status==='Active'" [class.draft]="parkingInList.status==='Draft'"
+                 [class.inactive]="parkingInList.status==='Inactive'" class="parking-status"></div>
+            <h3 [class.highlight-font]="selectedParking===parkingInList" class="prime-font normal">{{parkingInList.name}} </h3>
+          </div>
+          <div class="prime-font small status">{{parkingInList.status}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="info">
+      <ng-container *ngIf="this.parking; else elseBlock2">
+        <div class="info-header">
+          <h3 class="prime-font normal highlight-font">{{this.selectedParking?.name}}</h3>
+          <div *ngIf="this.parking.status==='Active'" class="field">
+            <input #carEntry="ngModel" [(ngModel)]="this.entryCarNum" class="p-inputtext-sm sm-width"
+                   name="carEntry"
+                   pInputText
+                   placeholder="Enter Vehicle Number..." required="true"/>
+            <p-button pRipple (click)="automatedSpotAllocation()" [disabled]="this.entryCarNum===undefined"
+                      label="Allocate" styleClass="p-button-outlined"></p-button>
+          </div>
+          <div *ngIf="this.parking.status!='Draft'" class="field">
+            <input #vacateCNum="ngModel" [(ngModel)]="this.vacateCarNum" class="p-inputtext-sm sm-width"
+                   name="vacateCNum"
+                   pInputText
+                   placeholder="Enter Vehicle Number..." required="true"/>
+            <p-button pRipple (click)="spotDeallocation()" [disabled]="this.vacateCarNum===undefined"
+                      label="Vacate" styleClass="p-button-outlined"></p-button>
+          </div>
+          <div class="info-screen-btns">
+            <p-button pRipple (onClick)="statusConfirmation()" [disabled]="this.parkingService.parkingActivationNotAllowed"
+                      label="{{statusType}}" styleClass="p-button-outlined"></p-button>
+            <p-button pRipple (onClick)="editParking(this.selectedParking!.id)"
+                      *ngIf="this.parking.status !='Active'" styleClass="p-button-outlined">
+              <i class="pi pi-pencil"></i></p-button>
+            <p-button pRipple (onClick)="loadParking(this.parking.id)"
+                      *ngIf="this.parking.status !='Draft'" icon="pi pi-refresh"
+                      styleClass="p-button-rounded p-button-outlined"></p-button>
+          </div>
+        </div>
+        <div class="block-config-view">
+          <parking-block-config-view [inputBlock]="this.rootBlock"
+                                     [status]="this.parking.status!"></parking-block-config-view>
+        </div>
+        <div class="legend">
+          <h5 class="prime-font small">Block's Occupancy:</h5>
+          <div class="legend-color phase0">0%</div>
+          <div class="legend-color phase1">0% - 25%</div>
+          <div class="legend-color phase2">25% - 50%</div>
+          <div class="legend-color phase3">50% - 75%</div>
+          <div class="legend-color phase4">75% - &lt;100%</div>
+          <div class="legend-color phase5">100%</div>
+        </div>
+      </ng-container>
+      <ng-template #elseBlock2>
+        <div *ngIf="this.selectedParking!=undefined" class="spinner">
+          <p-progressSpinner></p-progressSpinner>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+<p-confirmDialog [style]="{ width: '35vw' }" key="confirmDialog" position="top"
+                 rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
+

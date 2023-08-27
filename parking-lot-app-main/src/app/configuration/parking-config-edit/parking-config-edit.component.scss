@@ -1,0 +1,21 @@
+.parking-config-edit {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 15px;
+}
+
+.block-config-edit {
+  flex: 1;
+  padding: 15px 0 0 15px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+}

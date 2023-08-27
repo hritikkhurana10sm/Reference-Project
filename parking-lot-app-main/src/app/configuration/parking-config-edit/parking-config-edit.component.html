@@ -1,0 +1,20 @@
+<div class="parking-config-edit">
+  <div class="container" *ngIf="this.parking">
+    <label class="prime-font">
+      Parking Status: {{this.parking.status}}
+    </label>
+    <div class="horizontal-btns">
+      <p-button pRipple
+        (onClick)="saveParking()"
+        label="Save"
+        styleClass="p-button"
+        type="Submit"
+        [disabled]="this.rootBlock.name===undefined"
+      ></p-button>
+      <p-button pRipple (onClick)="goToDashBoard()" label="Cancel" styleClass="p-button-secondary"></p-button>
+    </div>
+  </div>
+  <div class="block-config-edit">
+    <parking-block-config-edit [inputBlock]="rootBlock" [level]=0></parking-block-config-edit>
+  </div>
+</div>
